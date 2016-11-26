@@ -43,10 +43,17 @@ import boto3
 import re
 import sys
 
+def preferred_path(paths):
+    for p in paths:
+        if p.endswith('.html'):
+            return p
+    print('choosing arbitrarily among [{}]'.format(', '.join(paths)))
+    return paths[0]
+
 
 def shadows(paths):
     s = {}
-    exp = re.compile(r'(.*)\.[a-zA-Z0-9]+')
+    exp = re.compile(r'(.+)\.[a-zA-Z0-9]+')
     for p in paths:
         m = exp.match(p)
         if m:
